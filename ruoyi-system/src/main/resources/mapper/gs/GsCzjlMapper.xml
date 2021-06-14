@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.gs.mapper.GsCzjlMapper">
+    
+    <resultMap type="GsCzjl" id="GsCzjlResult">
+        <result property="cid"    column="cid"    />
+        <result property="dm"    column="dm"    />
+        <result property="mc"    column="mc"    />
+        <result property="kdsj"    column="kdsj"    />
+        <result property="kdjg"    column="kdjg"    />
+        <result property="pdsj"    column="pdsj"    />
+        <result property="pdjg"    column="pdjg"    />
+        <result property="yl"    column="yl"    />
+        <result property="cysj"    column="cysj"    />
+        <result property="kdgs"    column="kdgs"    />
+    </resultMap>
+
+    <sql id="selectGsCzjlVo">
+        select cid, dm, mc, kdsj, kdjg, pdsj, pdjg, yl, cysj, kdgs from gs_czjl
+    </sql>
+
+    <select id="selectGsCzjlList" parameterType="GsCzjl" resultMap="GsCzjlResult">
+        <include refid="selectGsCzjlVo"/>
+        <where>  
+            <if test="dm != null "> and dm = #{dm}</if>
+            <if test="mc != null  and mc != ''"> and mc = #{mc}</if>
+            <if test="kdsj != null "> and kdsj = #{kdsj}</if>
+            <if test="kdjg != null "> and kdjg = #{kdjg}</if>
+            <if test="pdsj != null "> and pdsj = #{pdsj}</if>
+            <if test="pdjg != null "> and pdjg = #{pdjg}</if>
+            <if test="yl != null "> and yl = #{yl}</if>
+            <if test="cysj != null "> and cysj = #{cysj}</if>
+            <if test="kdgs != null  and kdgs != ''"> and kdgs = #{kdgs}</if>
+        </where>
+    </select>
+    
+    <select id="selectGsCzjlById" parameterType="Integer" resultMap="GsCzjlResult">
+        <include refid="selectGsCzjlVo"/>
+        where cid = #{cid}
+    </select>
+        
+    <insert id="insertGsCzjl" parameterType="GsCzjl" useGeneratedKeys="true" keyProperty="cid">
+        insert into gs_czjl
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dm != null">dm,</if>
+            <if test="mc != null">mc,</if>
+            <if test="kdsj != null">kdsj,</if>
+            <if test="kdjg != null">kdjg,</if>
+            <if test="pdsj != null">pdsj,</if>
+            <if test="pdjg != null">pdjg,</if>
+            <if test="yl != null">yl,</if>
+            <if test="cysj != null">cysj,</if>
+            <if test="kdgs != null">kdgs,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dm != null">#{dm},</if>
+            <if test="mc != null">#{mc},</if>
+            <if test="kdsj != null">#{kdsj},</if>
+            <if test="kdjg != null">#{kdjg},</if>
+            <if test="pdsj != null">#{pdsj},</if>
+            <if test="pdjg != null">#{pdjg},</if>
+            <if test="yl != null">#{yl},</if>
+            <if test="cysj != null">#{cysj},</if>
+            <if test="kdgs != null">#{kdgs},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGsCzjl" parameterType="GsCzjl">
+        update gs_czjl
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dm != null">dm = #{dm},</if>
+            <if test="mc != null">mc = #{mc},</if>
+            <if test="kdsj != null">kdsj = #{kdsj},</if>
+            <if test="kdjg != null">kdjg = #{kdjg},</if>
+            <if test="pdsj != null">pdsj = #{pdsj},</if>
+            <if test="pdjg != null">pdjg = #{pdjg},</if>
+            <if test="yl != null">yl = #{yl},</if>
+            <if test="cysj != null">cysj = #{cysj},</if>
+            <if test="kdgs != null">kdgs = #{kdgs},</if>
+        </trim>
+        where cid = #{cid}
+    </update>
+
+    <delete id="deleteGsCzjlById" parameterType="Integer">
+        delete from gs_czjl where cid = #{cid}
+    </delete>
+
+    <delete id="deleteGsCzjlByIds" parameterType="String">
+        delete from gs_czjl where cid in 
+        <foreach item="cid" collection="array" open="(" separator="," close=")">
+            #{cid}
+        </foreach>
+    </delete>
+</mapper>
